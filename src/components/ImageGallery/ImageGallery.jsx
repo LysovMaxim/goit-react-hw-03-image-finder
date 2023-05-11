@@ -9,10 +9,13 @@ export class ImageGallery extends Component {
     pictures: '',
     error: null,
     status: null,
-    showeModal:false,
+    showeModal: false,
+    urlPicture:"",
   };
-  toggleModal = () => {
+  toggleModal = (largeImageURL) => {
   this.setState(({showeModal})=>({showeModal:!showeModal}))
+  this.setState({ urlPicture: largeImageURL })
+  
 }
 
   componentDidUpdate(prevProps, prevState) {
@@ -30,7 +33,7 @@ export class ImageGallery extends Component {
     }
   }
   render() {
-    const { pictures, error, status,showeModal } = this.state;
+    const { pictures, error, status,showeModal,urlPicture } = this.state;
 
     if (status === 'pending') {
       return <Loader />;
@@ -40,12 +43,12 @@ export class ImageGallery extends Component {
     }
 
     if (status === 'resolved') {
-      return (<>{showeModal && <Modal picture={pictures.hits}/> }
+      return (<>{showeModal && <Modal urlPhoto={urlPicture} onClose={this.toggleModal}/> }
         <ul className="gallery">
           {pictures.hits &&
-            pictures.hits.map(({ id, webformatURL }) => (
+            pictures.hits.map(({ id, webformatURL,largeImageURL }) => (
               <ImageGalleryItem
-                onClick={this.toggleModal}
+                onClick={()=>this.toggleModal(largeImageURL)}
                 key={id}
                 id={id}
                 picture={webformatURL} />
