@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import { Searchbar } from "./Searchbar"
 import { ImageGallery } from "./ImageGallery"
+import {Button} from "./Button"
+
 
 export class App extends Component {
   state = {
@@ -15,7 +17,8 @@ export class App extends Component {
     return (
       <div>
         <Searchbar onSubmit={this.hendleFormSubmit} />
-        <ImageGallery pictureName={this.state.pictureName}/>
+        <ImageGallery pictureName={this.state.pictureName} />
+        <Button/>
       </div>
     );
   };
