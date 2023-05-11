@@ -12,11 +12,15 @@ export class ImageGallery extends Component {
     showeModal: false,
     urlPicture:"",
   };
-  toggleModal = (largeImageURL) => {
-  this.setState(({showeModal})=>({showeModal:!showeModal}))
+  openModal = (largeImageURL) => {
+  this.setState({showeModal:true})
   this.setState({ urlPicture: largeImageURL })
+  }
   
-}
+  closeModal = () => {
+    this.setState({ showeModal: false })
+    this.setState({urlPicture:""})
+  }
 
   componentDidUpdate(prevProps, prevState) {
     const prevName = prevProps.pictureName;
@@ -43,12 +47,12 @@ export class ImageGallery extends Component {
     }
 
     if (status === 'resolved') {
-      return (<>{showeModal && <Modal urlPhoto={urlPicture} onClose={this.toggleModal}/> }
+      return (<>{showeModal && <Modal urlPhoto={urlPicture} onClose={this.closeModal}/> }
         <ul className="gallery">
           {pictures.hits &&
             pictures.hits.map(({ id, webformatURL,largeImageURL }) => (
               <ImageGalleryItem
-                onClick={()=>this.toggleModal(largeImageURL)}
+                onClick={()=>this.openModal(largeImageURL)}
                 key={id}
                 id={id}
                 picture={webformatURL} />

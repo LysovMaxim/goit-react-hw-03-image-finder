@@ -1,19 +1,31 @@
+import { Component } from 'react';
 import css from './Modal.module.css';
 
-export const Modal = ({ urlPhoto,onClose }) => {
-  window.addEventListener("keydown", (event) => {
+export class Modal extends Component {
+  componentDidMount() { 
+window.addEventListener("keydown" ,this.hendleKeyDown)
+  }
+  
+  componentDidUpdate() {
+    window.addEventListener("keydown",this.hendleKeyDown)
+  }
+
+  hendleKeyDown = (event) =>{
     if (event.code === "Escape") {
-      onClose();
+      this.props.onClose();
     }
-  })
+  }
 
 
-  return (
+render(){
+    return (
     <div className={css.Overlay}>
       <div className={css.Modal}>
-        <img src={urlPhoto} alt="" />
+        <img src={this.props.urlPhoto} alt="" />
       </div>
     </div>
    
   );
+}
+
 };
