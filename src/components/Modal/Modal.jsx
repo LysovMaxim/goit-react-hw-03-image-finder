@@ -16,10 +16,16 @@ window.addEventListener("keydown" ,this.hendleKeyDown)
     }
   }
 
+  hendleBeckdropClick = (event) => {
+    if (event.currentTarget === event.target) {
+      this.props.onClose();
+    }
+  }
+
 
 render(){
     return (
-    <div className={css.Overlay}>
+    <div className={css.Overlay} onClick={this.hendleBeckdropClick}>
       <div className={css.Modal}>
         <img src={this.props.urlPhoto} alt="" />
       </div>

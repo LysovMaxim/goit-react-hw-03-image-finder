@@ -3,6 +3,7 @@ import { Component } from 'react';
 export class Searchbar extends Component {
   state = {
     pictureName: '',
+    page:1
   };
 
   hendlePictuerSubmit = event => {
@@ -12,11 +13,12 @@ export class Searchbar extends Component {
   hendleSubmit = event => {
     event.preventDefault();
     if (this.state.pictureName.trim() === '') {
-      alert('привет');
+      alert('Enter the title');
       return;
     }
     this.props.onSubmit(this.state.pictureName);
     this.setState({ pictureName: '' });
+
   };
 
   render() {
