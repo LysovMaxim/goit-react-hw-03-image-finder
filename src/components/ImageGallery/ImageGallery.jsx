@@ -3,7 +3,6 @@ import { ImageGalleryItem } from '../ImageGalleryItem';
 import { Loader } from '../Loader';
 import { Modal } from '../Modal';
 
-
 export class ImageGallery extends Component {
   state = {
     pictures: [],
@@ -22,8 +21,6 @@ export class ImageGallery extends Component {
     this.setState({ urlPicture: '' });
   };
 
-
-
   componentDidUpdate(prevProps, prevState) {
     const prevName = prevProps.pictureName;
     const nextName = this.props.pictureName;
@@ -34,13 +31,17 @@ export class ImageGallery extends Component {
         `https://pixabay.com/api/?q=${nextName}&page=${this.props.page}&key=34851334-286cf58f2651b78053c9b207d&image_type=photo&orientation=horizontal&per_page=12`
       )
         .then(res => res.json())
-        .then(pictures => this.setState({ pictures:pictures.hits, status: 'resolved' }))
+        .then(picture => {
+          this.setState(prevState => ({
+            pictures: [...prevState.pictures, ...picture.hits],
+            status: 'resolved',
+          }));
+        })
         .catch(error => this.setState({ error, status: 'rejected' }));
     }
   }
   render() {
     const { pictures, error, status, showeModal, urlPicture } = this.state;
-
 
     if (status === 'pending') {
       return <Loader />;
@@ -55,20 +56,21 @@ export class ImageGallery extends Component {
           {showeModal && (
             <Modal urlPhoto={urlPicture} onClose={this.closeModal} />
           )}
-          <ul className="gallery">
-            {pictures &&
-              pictures.map(({ id, webformatURL, largeImageURL }) => (
-                <ImageGalleryItem
-                  onClick={() => this.openModal(largeImageURL)}
-                  key={id}
-                  id={id}
-                  picture={webformatURL}
-                />
-              ))}
-          </ul>
+          {
+            <ul className="gallery">
+              {pictures &&
+                pictures.map(({ id, webformatURL, largeImageURL }) => (
+                  <ImageGalleryItem
+                    onClick={() => this.openModal(largeImageURL)}
+                    key={id}
+                    id={id}
+                    picture={webformatURL}
+                  />
+                ))}
+            </ul>
+          }
         </>
       );
     }
-
   }
 }

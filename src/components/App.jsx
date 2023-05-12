@@ -12,6 +12,7 @@ export class App extends Component {
   hendleFormSubmit = pictureName => {
     this.setState({ pictureName });
   };
+  
 
   onLoadMore = () => {
     this.setState(({ page }) => ({
@@ -27,7 +28,7 @@ export class App extends Component {
           pictureName={this.state.pictureName}
           page={this.state.page}
         />
-        <Button onClick={this.onLoadMore} />;
+        <Button onClick={this.onLoadMore} />
       </div>
     );
   }
