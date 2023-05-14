@@ -71,7 +71,7 @@ export class App extends Component {
         <ImageGallery state={this.state} onModal={this.onModal} />
 
         {this.state.status === 'pending' && <Loader />}
-        {this.state.pictures.length !==0 && <Button onClick={this.onLoadMore} />}
+        {this.state.pictures.length >= 12 && <Button onClick={this.onLoadMore} />}
       </div>
     );
   }
