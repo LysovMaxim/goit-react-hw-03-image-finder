@@ -3,7 +3,6 @@ import { Component } from 'react';
 export class Searchbar extends Component {
   state = {
     pictureName: '',
-    page:1
   };
 
   hendlePictuerSubmit = event => {
@@ -17,7 +16,6 @@ export class Searchbar extends Component {
       return;
     }
     this.props.onSubmit(this.state.pictureName);
-    this.setState({ pictureName: '' , page: 1});
 
   };
 

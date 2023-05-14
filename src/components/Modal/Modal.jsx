@@ -27,7 +27,7 @@ render(){
     return (
     <div className={css.Overlay} onClick={this.hendleBeckdropClick}>
       <div className={css.Modal}>
-        <img src={this.props.urlPhoto} alt="" />
+        <img src={this.props.urlPhoto.url} alt="" />
       </div>
     </div>
    
