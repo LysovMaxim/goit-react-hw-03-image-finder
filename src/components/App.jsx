@@ -3,7 +3,7 @@ import { Searchbar } from './SearchBar';
 import { ImageGallery } from './ImageGallery';
 import { Button } from './Button';
 import { Loader } from './Loader';
-import css from "./App.module.css"
+import css from './App.module.css';
 
 export class App extends Component {
   state = {
@@ -16,19 +16,19 @@ export class App extends Component {
     urlPicture: '',
   };
 
-    hendleSubmit = event => {
-      event.preventDefault();
-      const value = event.currentTarget.elements.pictureName.value;
+  hendleSubmit = event => {
+    event.preventDefault();
+    const value = event.currentTarget.elements.pictureName.value;
     if (value.trim() === '') {
       alert('Enter the title');
       return;
-      }
-      this.setState({
-        pictureName: value.toLowerCase(),
-        pictures: [],
-        page: 1,
-      })
-      event.currentTarget.reset()
+    }
+    this.setState({
+      pictureName: value.toLowerCase(),
+      pictures: [],
+      page: 1,
+    });
+    event.currentTarget.reset();
   };
 
   onLoadMore = () => {
@@ -67,11 +67,13 @@ export class App extends Component {
   render() {
     return (
       <div className={css.App}>
-        <Searchbar onSubmit={this.hendleSubmit}/>
+        <Searchbar onSubmit={this.hendleSubmit} />
         <ImageGallery state={this.state} onModal={this.onModal} />
 
         {this.state.status === 'pending' && <Loader />}
-        {this.state.pictures.length >= 12 && <Button onClick={this.onLoadMore} />}
+        {this.state.pictures.length >= 12 && (
+          <Button onClick={this.onLoadMore} />
+        )}
       </div>
     );
   }
