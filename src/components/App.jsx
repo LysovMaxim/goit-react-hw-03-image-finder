@@ -1,7 +1,8 @@
 import { Component } from 'react';
-import { Searchbar } from './Searchbar';
+import { Searchbar } from './SearchBar';
 import { ImageGallery } from './ImageGallery';
 import { Button } from './Button';
+import { Loader } from './Loader';
 
 export class App extends Component {
   state = {
@@ -12,28 +13,29 @@ export class App extends Component {
     status: null,
     showeModal: false,
     urlPicture: '',
-
   };
-  
 
   hendleFormSubmit = pictureName => {
-    this.setState({ pictureName });
+    this.setState({
+      pictureName: pictureName,
+      pictures: [],
+      page: 1,
+      error: null,
+    });
   };
-  
 
   onLoadMore = () => {
     this.setState(({ page }) => ({
       page: page + 1,
     }));
   };
-  
 
-  onModal = (url) => {
+  onModal = url => {
     this.setState(prevState => ({
       showeModal: !prevState.showeModal,
-      urlPicture:{url}
-    }))
-  }
+      urlPicture: { url },
+    }));
+  };
 
   componentDidUpdate = (prevProps, prevState) => {
     const prevName = prevState.pictureName;
@@ -53,17 +55,16 @@ export class App extends Component {
         })
         .catch(error => this.setState({ error, status: 'rejected' }));
     }
-  }
+  };
 
   render() {
     return (
       <div>
         <Searchbar onSubmit={this.hendleFormSubmit} page={this.state.page} />
-        <ImageGallery
-          state={this.state}
-          onModal={this.onModal}
-        />
-        <Button onClick={this.onLoadMore} />
+        <ImageGallery state={this.state} onModal={this.onModal} />
+
+        {this.state.status === 'pending' && <Loader />}
+        {this.state.pictures.length !==0 && <Button onClick={this.onLoadMore} />}
       </div>
     );
   }

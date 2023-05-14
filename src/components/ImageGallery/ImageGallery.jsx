@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { ImageGalleryItem } from '../ImageGalleryItem';
-import { Loader } from '../Loader';
+
 import { Modal } from '../Modal';
 
 export class ImageGallery extends Component {
@@ -8,9 +8,6 @@ export class ImageGallery extends Component {
     const { pictures, error, status, showeModal, urlPicture } =
       this.props.state;
 
-    if (status === 'pending') {
-      return <Loader />;
-    }
     if (status === 'rejected') {
       return <h1>{error.message}</h1>;
     }
