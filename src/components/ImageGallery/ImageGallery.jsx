@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { ImageGalleryItem } from '../ImageGalleryItem';
+import css from "./ImageGallery.module.css"
 
 import { Modal } from '../Modal';
 
@@ -18,7 +19,7 @@ export class ImageGallery extends Component {
           <Modal onClose={this.props.onModal} urlPhoto={urlPicture} />
         }
         {
-          <ul className="gallery">
+          <ul className={css.ImageGallery}>
             {pictures &&
               pictures.map(({ id, webformatURL, largeImageURL }) => (
                 <ImageGalleryItem
