@@ -16,13 +16,19 @@ export class App extends Component {
     urlPicture: '',
   };
 
-  hendleFormSubmit = pictureName => {
-    this.setState({
-      pictureName: pictureName,
-      pictures: [],
-      page: 1,
-      error: null,
-    });
+    hendleSubmit = event => {
+      event.preventDefault();
+      const value = event.currentTarget.elements.pictureName.value;
+    if (value.trim() === '') {
+      alert('Enter the title');
+      return;
+      }
+      this.setState({
+        pictureName: value.toLowerCase(),
+        pictures: [],
+        page: 1,
+      })
+      event.currentTarget.reset()
   };
 
   onLoadMore = () => {
@@ -61,7 +67,7 @@ export class App extends Component {
   render() {
     return (
       <div className={css.App}>
-        <Searchbar onSubmit={this.hendleFormSubmit} page={this.state.page} />
+        <Searchbar onSubmit={this.hendleSubmit}/>
         <ImageGallery state={this.state} onModal={this.onModal} />
 
         {this.state.status === 'pending' && <Loader />}

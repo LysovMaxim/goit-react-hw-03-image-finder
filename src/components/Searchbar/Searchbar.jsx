@@ -1,29 +1,11 @@
-import { Component } from 'react';
+
 import css from "./SearchBar.module.css"
 
-export class Searchbar extends Component {
-  state = {
-    pictureName: '',
-  };
+export const Searchbar=({onSubmit})=>{
 
-  hendlePictuerSubmit = event => {
-    this.setState({ pictureName: event.currentTarget.value.toLowerCase() });
-  };
-
-  hendleSubmit = event => {
-    event.preventDefault();
-    if (this.state.pictureName.trim() === '') {
-      alert('Enter the title');
-      return;
-    }
-    this.props.onSubmit(this.state.pictureName);
-
-  };
-
-  render() {
     return (
       <header className={css.Searchbar}>
-        <form className={css.SearchForm} onSubmit={this.hendleSubmit}>
+        <form className={css.SearchForm} onSubmit={onSubmit}>
           <button type="submit" className={css.SearchFormButton}>
             <span className="button-label">Search</span>
           </button>
@@ -35,11 +17,9 @@ export class Searchbar extends Component {
             autoFocus
             placeholder="Search images and photos"
             name="pictureName"
-            value={this.state.pictureName}
-            onChange={this.hendlePictuerSubmit}
           />
         </form>
       </header>
     );
   }
-}
+
